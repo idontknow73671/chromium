@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chromium</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+        }
+        #controls {
+            display: flex;
+            padding: 10px;
+            background: #ddd;
+        }
+        input {
+            flex: 1;
+            padding: 5px;
+        }
+        button {
+            margin-left: 5px;
+            padding: 5px 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="controls">
+        <input type="text" id="search-query" placeholder="Enter website name (e.g., Google)">
+        <button onclick="searchWebsite()">Go</button>
+    </div>
+
+    <script>
+        function searchWebsite() {
+            let query = document.getElementById('search-query').value.trim();
+            let url;
+
+            // Check if the input contains "www" or a domain name and prepend "https://"
+            if (query.includes('www.') || query.includes('.com') || query.includes('.org') || query.includes('.net')) {
+                url = 'https://' + query;
+            } else {
+                // If it's just a name, try to resolve it by assuming it's a common website
+                url = 'https://www.' + query + '.com';
+            }
+
+            // Open the URL in a new tab
+            try {
+                window.open(url, '_blank'); // Opens the site in a new tab
+            } catch (error) {
+                alert('There was an issue opening the website. Please check the URL or SSL certificate.');
+            }
+        }
+    </script>
+</body>
+</html>
+
